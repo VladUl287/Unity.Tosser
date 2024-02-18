@@ -21,18 +21,17 @@ public sealed class Movement : MonoBehaviour
     {
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
+        var moveVertical = vertical * MoveSpeed * Time.deltaTime * Camera.main.transform.forward;
+        var moveHorizontal = horizontal * MoveSpeed * Time.deltaTime * Camera.main.transform.right;
+        var position = moveVertical + moveHorizontal + transform.position;
+        position.y = transform.position.y;
+        transform.position = position;
 
         //var moveVertical = vertical * MoveSpeed * Time.deltaTime * Camera.main.transform.forward;
         //var moveHorizontal = horizontal * MoveSpeed * Time.deltaTime * Camera.main.transform.right;
         //var position = moveVertical + moveHorizontal;
         //position.y = 0;
         //rgBody.velocity += position;
-
-        var moveVertical = vertical * MoveSpeed * Time.deltaTime * Camera.main.transform.forward;
-        var moveHorizontal = horizontal * MoveSpeed * Time.deltaTime * Camera.main.transform.right;
-        var position = moveVertical + moveHorizontal + transform.position;
-        position.y = transform.position.y;
-        transform.position = position;
 
         if (Input.GetButtonDown("Jump") && IsGrounded())
         {
