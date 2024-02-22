@@ -2,50 +2,80 @@ using UnityEngine;
 
 public sealed class Movement : MonoBehaviour
 {
-    private Rigidbody rgBody;
+    private Rigidbody rigidBody;
+    private bool RunHeldDown = false;
 
-    public Transform groundCheck;
+    public Transform ground;
     public LayerMask groundLayer;
 
-    public float MoveSpeed = 5F;
-    public float JumpForce = 5F;
+    public float NormalMoveSpeed = 7F;
+    public float HighMoveSpeed = 10F;
+    public float JumpForce = 10F;
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-
-        rgBody = GetComponent<Rigidbody>();
+        rigidBody = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
-        var horizontal = Input.GetAxis("Horizontal");
-        var vertical = Input.GetAxis("Vertical");
-        var moveVertical = vertical * MoveSpeed * Time.deltaTime * Camera.main.transform.forward;
-        var moveHorizontal = horizontal * MoveSpeed * Time.deltaTime * Camera.main.transform.right;
-        var position = moveVertical + moveHorizontal + transform.position;
-        position.y = transform.position.y;
-        transform.position = position;
+        SetRunHeldDown();
 
-        //var moveVertical = vertical * MoveSpeed * Time.deltaTime * Camera.main.transform.forward;
-        //var moveHorizontal = horizontal * MoveSpeed * Time.deltaTime * Camera.main.transform.right;
-        //var position = moveVertical + moveHorizontal;
-        //position.y = 0;
-        //rgBody.velocity += position;
+        var speed = GetSpeed();
 
-        if (Input.GetButtonDown("Jump") && IsGrounded())
+        Move(transform, speed);
+
+        JumpByDown();
+    }
+
+    private void SetRunHeldDown()
+    {
+        if (Input.GetButtonDown("Run"))
         {
-            Jump();
+            RunHeldDown = true;
+        }
+        else if (Input.GetButtonUp("Run"))
+        {
+            RunHeldDown = false;
         }
     }
 
-    private void Jump()
+    private float GetSpeed()
     {
-        rgBody.velocity = new Vector3(0, JumpForce, 0);
+        if (RunHeldDown)
+        {
+            return HighMoveSpeed;
+        }
+        return NormalMoveSpeed;
+    }    
+
+    private static void Move(Transform transform, float speed)
+    {
+        var horizontal = Input.GetAxis("Horizontal");
+        var vertical = Input.GetAxis("Vertical");
+
+        var moveVertical = vertical * speed * Time.deltaTime * Camera.main.transform.forward;
+        var moveHorizontal = horizontal * speed * Time.deltaTime * Camera.main.transform.right;
+        var position = moveVertical + moveHorizontal + transform.position;
+        position.y = transform.position.y;
+        transform.position = position;
     }
 
-    private bool IsGrounded()
+    private void JumpByDown()
     {
-        return Physics.CheckSphere(groundCheck.position, .1F, groundLayer);
+        if (Input.GetButtonDown("Jump") && IsGrounded(ground, groundLayer))
+        {
+            Jump(rigidBody, JumpForce);
+        }
+    }
+
+    private static void Jump(Rigidbody rigidbody, float force)
+    {
+        rigidbody.velocity = new Vector3(0, force, 0);
+    }
+
+    private static bool IsGrounded(Transform transform, LayerMask layer)
+    {
+        return Physics.CheckSphere(transform.position, .1F, layer);
     }
 }
