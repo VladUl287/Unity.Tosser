@@ -793,7 +793,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxRaycastDistance: 10
-  interactableLayer:
+  interactLayer:
     serializedVersion: 2
     m_Bits: 64
   crosshair: {fileID: 982321096}
@@ -1153,8 +1153,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 705507995}
+  - {fileID: 1654123208}
   - {fileID: 2156948449955300863}
   - {fileID: 1078973456}
   - {fileID: 864778511}
   - {fileID: 157577281}
-  - {fileID: 1654123208}

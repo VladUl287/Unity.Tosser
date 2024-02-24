@@ -22,15 +22,14 @@ public sealed class Movement : MonoBehaviour
         SetRunHeldDown();
 
         var speed = GetSpeed();
-
         Move(transform, speed);
 
-        JumpByDown();
+        Jump();
     }
 
     private void SetRunHeldDown()
     {
-        if (Input.GetButtonDown("Run"))
+        if (Input.GetButtonDown("Run") && IsGrounded(ground, groundLayer))
         {
             RunHeldDown = true;
         }
@@ -61,17 +60,12 @@ public sealed class Movement : MonoBehaviour
         transform.position = position;
     }
 
-    private void JumpByDown()
+    private void Jump()
     {
         if (Input.GetButtonDown("Jump") && IsGrounded(ground, groundLayer))
         {
-            Jump(rigidBody, JumpForce);
+            rigidBody.velocity = new Vector3(0, JumpForce, 0);
         }
-    }
-
-    private static void Jump(Rigidbody rigidbody, float force)
-    {
-        rigidbody.velocity = new Vector3(0, force, 0);
     }
 
     private static bool IsGrounded(Transform transform, LayerMask layer)
