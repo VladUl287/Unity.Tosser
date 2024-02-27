@@ -659,7 +659,6 @@ GameObject:
   - component: {fileID: 1519865544}
   - component: {fileID: 1519865543}
   - component: {fileID: 1519865546}
-  - component: {fileID: 1519865547}
   m_Layer: 6
   m_Name: Sphere
   m_TagString: Interactable
@@ -780,23 +779,6 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1519865547
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1519865541}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 41c848e56cf19f447a94cdd619cb4746, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxRaycastDistance: 10
-  interactLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  crosshair: {fileID: 982321096}
 --- !u!4 &1544400393 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 510127372541296672, guid: 85808c352ee744a4082f195e4f29e8ba, type: 3}
@@ -1114,6 +1096,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2801114314108031917, guid: 85808c352ee744a4082f195e4f29e8ba, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2156948449955300872}
+    - targetCorrespondingSourceObject: {fileID: 2801114314108031917, guid: 85808c352ee744a4082f195e4f29e8ba, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2156948449955300873}
     - targetCorrespondingSourceObject: {fileID: 5199943284004199296, guid: 85808c352ee744a4082f195e4f29e8ba, type: 3}
       insertIndex: -1
       addedObject: {fileID: 963194229}
@@ -1148,6 +1133,23 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lastTouched: {fileID: 0}
+--- !u!114 &2156948449955300873
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2156948449955300864}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 584454a701f741443b94339e4f99601b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MaxRaycastDistance: 10
+  InteractLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  Crosshair: {fileID: 982321096}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
