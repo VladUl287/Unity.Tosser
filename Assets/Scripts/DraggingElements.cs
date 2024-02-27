@@ -23,6 +23,8 @@ public sealed class DraggingElements : MonoBehaviour
                     Transform = hit.collider.transform;
                     Crosshair.SetActive(false);
                     Dragging = true;
+
+                    ClipTo.SetLastTouched(hit.collider.gameObject);
                 }
             }
             return;
@@ -37,7 +39,7 @@ public sealed class DraggingElements : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            RigidBody.velocity = Camera.main.transform.position + Camera.main.transform.forward * 10;
+            RigidBody.velocity = Camera.main.transform.forward * 10;
             Crosshair.SetActive(true);
             Dragging = false;
             return;
