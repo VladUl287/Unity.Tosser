@@ -2,17 +2,18 @@ using UnityEngine;
 
 public sealed class ClipTo : MonoBehaviour
 {
-    public GameObject lastTouched;
+    private static GameObject LastTouched;
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.LeftAlt))
+        if (Input.GetKeyDown(KeyCode.LeftAlt) && LastTouched != null)
         {
-            var sphere = GameObject.Find("Sphere");
-            if (sphere != null)
-            {
-                transform.position = sphere.transform.position;
-            }
+            transform.position = LastTouched.transform.position;
         }
+    }
+
+    public static void SetLastTouched(GameObject gameObject)
+    {
+        LastTouched = gameObject;
     }
 }
