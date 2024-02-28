@@ -39,7 +39,7 @@ public sealed class DraggingElements : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1"))
         {
-            RigidBody.velocity = Camera.main.transform.forward * 20;
+            RigidBody.velocity = Camera.main.transform.forward * 40;
             Crosshair.SetActive(true);
             Dragging = false;
             return;
