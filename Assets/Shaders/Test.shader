@@ -53,20 +53,23 @@ Shader "Custom/Test"
             // Fragment shader function
             fixed4 frag (v2f i) : SV_Target
             {
-                // Calculate grid coordinates
-                float2 uv = i.uv * _GridSize;
-                float2 grid = fmod(uv, 1.0);
-                float2 border = fwidth(uv);
-
-                // Calculate grid lines
-                float2 gridLines = step(border, grid) * step(grid, 1.0 - border);
-
-                // Sample main texture
-                fixed4 col = tex2D(_MainTex, i.uv);
+                 // Calculate grid coordinates
+                 float2 uv = i.uv * _GridSize;
+                 float2 grid = fmod(uv, 1.0);
+                 float2 border = fwidth(uv);
                 
-                // Multiply color by grid lines to create grid effect
-                col.rgb *= _GridLineColor.rgb * gridLines.x * gridLines.y;
-                return col;
+                 // Calculate grid lines
+                 float2 gridLines = step(border, grid) * step(grid, 1.0 - border);
+                
+                 // Calculate grid color
+                 fixed4 gridColor = _GridLineColor * gridLines.x * gridLines.y;
+                
+                 // Sample main texture
+                 fixed4 col = tex2D(_MainTex, i.uv);
+                
+                 // Mix grid color with texture color
+                 col.rgb = lerp(col.rgb, gridColor.rgb, gridColor.a);
+                 return col;
             }
             ENDCG // End CG program
         }
